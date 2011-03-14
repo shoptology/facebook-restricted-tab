@@ -14,6 +14,7 @@ From the command-line, if you run
 It will unset all of the restrictions so the app is visible to all.
 
 When you load the app in an iframe tab, it will show
+
 *   Graph API info about the current page
 *   Whether or not you like the page
 *   Whether or not you are an admin of the page

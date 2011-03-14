@@ -13,12 +13,21 @@ require realpath(__DIR__ . '/../config.php');
 $page = false;
 if (isset($signedRequest['page'])) {
 	$page = $facebook->api('/' . $signedRequest['page']['id']);
+
+	// $tabLink is used later to demonstrate passing data to an iframe tab
 	$tabLink = $page['link'];
 	if (strpos('?', $tabLink) ) {
 		$tabLink .= "?";
 	} else {
 		$tabLink .= "&";
 	}
+	$tabLink .= "sk=app_" . $appId;
+
+	$dataToPass = array(
+		'some_data' => array(1,2,3),
+		'other' => 'hey now'
+	);
+	$tabLink .= "&" . json_encode($dataToPass);
 }
 
 ?>
@@ -104,13 +113,13 @@ if (isset($signedRequest['page'])) {
 			<?php } else { ?>
 				<p>You are not an admin of this page.</p>
 			<?php } ?>
-			<p><a href="">Pass some data to this tab</a></p>
+			<p><a href="<?php echo escape($tabLink); ?>">Pass some data to this tab</a></p>
+		</div>
+		<div>
+			Like button:<br />
+			<fb:like href="<?php echo $page['link']; ?>" />
 		</div>
 	<?php } ?>
-	<div>
-		Like button:<br />
-		<fb:like href="<?php echo $protocol; ?>www.facebook.com/pages/Sample-Brand-Page/106958189381497" />
-	</div>
 
 	<div class="debug">
 		<h4>Request Vars</h4>

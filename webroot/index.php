@@ -27,7 +27,7 @@ if (isset($signedRequest['page'])) {
 		'some_data' => array(1,2,3),
 		'other' => 'hey now'
 	);
-	$tabLink .= "&" . json_encode($dataToPass);
+	$tabLink .= "&app_data=" . json_encode($dataToPass);
 }
 
 ?>

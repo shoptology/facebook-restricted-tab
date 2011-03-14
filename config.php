@@ -30,8 +30,28 @@ if (isset($signedRequest['app_data'])) {
 }
 
 
-function escape($string, $context = 'html') {
-
+/**
+ * Shortens the amount of typing required to escape a string for output
+ * 
+ * @param string $string The string to escape
+ * @param string $context The following options are valid:
+ *     'html': escapes for html output
+ *     'json': escapes for json or javascript output (note - adds double quotes around strings)
+ */
+function escape($string, $context = 'html')
+{
+	$return = '';
+	switch ($context) {
+		default:
+		case 'html':
+			$return = htmlentities($string, ENT_COMPAT, 'UTF-8');
+			break;
+		case 'json':
+			$return = json_encode($string);
+			break;
+	}
+	return $return;
 }
 
+}
 

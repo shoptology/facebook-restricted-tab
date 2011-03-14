@@ -113,7 +113,7 @@ if (isset($signedRequest['page'])) {
 			<?php } else { ?>
 				<p>You are not an admin of this page.</p>
 			<?php } ?>
-			<p><a href="<?php echo escape($tabLink); ?>">Pass some data to this tab</a></p>
+			<p><a href="<?php echo escape($tabLink); ?>" target="_top">Pass some data to this tab</a></p>
 		</div>
 		<div>
 			Like button:<br />
@@ -134,7 +134,7 @@ if (isset($signedRequest['page'])) {
 		<pre><?php print_r($appData); ?></pre>
 	</div>
 
-	<p><a href="https://github.com/Affinitive/FacebookRestrictedTab/zipball/master">Download Source</a> or fork on <a href="https://github.com/Affinitive/FacebookRestrictedTab">GitHub</a></p>
+	<p><a href="https://github.com/Affinitive/FacebookRestrictedTab/zipball/master" target="_new">Download Source</a> or fork on <a href="https://github.com/Affinitive/FacebookRestrictedTab" target="_new">GitHub</a></p>
 	<script type="text/javascript" src="<?php echo $protocol; ?>ajax.microsoft.com/ajax/jquery/jquery-1.5.min.js"></script>
 	<script type="text/javascript" src="<?php echo $protocol; ?>j.maxmind.com/app/geoip.js"></script>
 	<script type="text/javascript">

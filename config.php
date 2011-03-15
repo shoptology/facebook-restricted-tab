@@ -53,5 +53,4 @@ function escape($string, $context = 'html')
 	return $return;
 }
 
-}
 

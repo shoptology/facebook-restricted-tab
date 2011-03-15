@@ -39,8 +39,8 @@ if (isset($signedRequest['page'])) {
     <script type="text/javascript">
     
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-206611-44']);
-      _gaq.push(['_setDomainName', '.affinispace.com']); // note that the GA domain is your server, not .facebook.com
+      _gaq.push(['_setAccount', 'GA_ACCOUNT']);
+      _gaq.push(['_setDomainName', '.yourdomain.com']); // note that the GA domain is your server, not .facebook.com
       _gaq.push(['_trackPageview']);
     
       (function() {

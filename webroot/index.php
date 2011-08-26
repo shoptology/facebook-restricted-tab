@@ -3,7 +3,7 @@
  * Canvas page index shows facebook provided location data
  * plus shows that normal geo-ip location techniques are
  * available.
- * 
+ *
  * @copyright Affinitive, LLC
  * @author Rob Marscher (@rmarscher)
  */
@@ -32,32 +32,38 @@ if (isset($signedRequest['page'])) {
 
 ?>
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Geo Restricted App Demo</title>
+	<meta property="og:title" content="Geo Restricted App Demo" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="<?php echo $callbackUrl; ?>/" />
+	<meta property="og:image" content="" />
+	<meta property="fb:app_id" content="<?php echo $appId; ?>" />
+	<meta property="og:description" content="Sample Facebook iframe Tab for Pages" />
     <link href="<?php echo $callbackUrl; ?>/css/main.css.php?cb=<?php echo $cacheId; ?>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-    
+
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'GA_ACCOUNT']);
       _gaq.push(['_setDomainName', '.yourdomain.com']); // note that the GA domain is your server, not .facebook.com
       _gaq.push(['_trackPageview']);
-    
+
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-    
+
     </script>
 </html>
 <body>
 	<div id="fb-root"></div>
 	<script>
 		window.fbAsyncInit = function() {
-			FB.init({ 
-				appId: <?php echo $appId; ?>, cookie:true, 
-				status:true, xfbml:true 
+			FB.init({
+				appId: <?php echo json_encode($appId); ?>, cookie: true,
+				oauth: true, status: true, xfbml: true
 			});
 			FB.Event.subscribe('edge.create', function(data) {
 				console.log('Like');
@@ -92,8 +98,8 @@ if (isset($signedRequest['page'])) {
 
 	<fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
 	<p class="info">
-		If you want to deauthorize the app so you can test again, 
-		click the [x] to the right of <b>Tab Iframe Test</b> on this page:  
+		If you want to deauthorize the app so you can test again,
+		click the [x] to the right of <b>Tab Iframe Test</b> on this page:
 		<a href="https://www.facebook.com/settings/?tab=applications" target="_new">https://www.facebook.com/settings/?tab=applications</a>
 	</p>
 
@@ -135,8 +141,8 @@ if (isset($signedRequest['page'])) {
 	</div>
 
 	<p><a href="https://github.com/Affinitive/FacebookRestrictedTab/zipball/master" target="_new">Download Source</a> or fork on <a href="https://github.com/Affinitive/FacebookRestrictedTab" target="_new">GitHub</a></p>
-	<script type="text/javascript" src="<?php echo $protocol; ?>ajax.microsoft.com/ajax/jquery/jquery-1.5.min.js"></script>
-	<script type="text/javascript" src="<?php echo $protocol; ?>j.maxmind.com/app/geoip.js"></script>
+	<script src="//ajax.microsoft.com/ajax/jquery/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="//j.maxmind.com/app/geoip.js"></script>
 	<script type="text/javascript">
 		$('#countryCode').text(geoip_country_code());
 	</script>

@@ -1,9 +1,5 @@
 <?php
 
-$appId = 'ENTER YOUR APP ID HERE';
-$appSecret = 'ENTER YOUR APP SECRET HERE';
-$cacheId = 1; // bump this up when changing images or css so facebook grabs a new version for its cache 
-
 // "secure browsing" feature forces us to support https
 $protocol = "http://";
 $ssl = false;
@@ -12,14 +8,21 @@ if (isset($_SERVER['HTTPS'])) {
 	$ssl = true;
 }
 
-$callbackUrl = $protocol . $_SERVER['HTTP_HOST'] . '/restricted-app/webroot'; // trailing slash is not expected here 
-$canvasUrl = $protocol . 'apps.facebook.com/restricted-app'; // trailing slash is not expected here 
+$localConfig = __DIR__ . '/config.local.php';
+if (!file_exists($localConfig)) {
+	$appId = 'ENTER YOUR APP ID HERE';
+	$appSecret = 'ENTER YOUR APP SECRET HERE';
+	$callbackUrl = $protocol . $_SERVER['HTTP_HOST'] . '/restricted-app/webroot'; // trailing slash is not expected here
+	$canvasUrl = $protocol . 'apps.facebook.com/restricted-app'; // trailing slash is not expected here
+	$cacheId = 1; // bump this up when changing images or css so facebook grabs a new version for its cache
+} else {
+	require $localConfig;
+}
 
 require __DIR__ . '/lib/facebook-sdk/facebook.php';
 $facebook = new Facebook(array(
-	'appId' => $appId, 
+	'appId' => $appId,
 	'secret' => $appSecret,
-	'cookie' => true, 
 	'fileUpload' => true
 ));
 
@@ -32,7 +35,7 @@ if (isset($signedRequest['app_data'])) {
 
 /**
  * Shortens the amount of typing required to escape a string for output
- * 
+ *
  * @param string $string The string to escape
  * @param string $context The following options are valid:
  *     'html': escapes for html output
@@ -52,5 +55,4 @@ function escape($string, $context = 'html')
 	}
 	return $return;
 }
-
 

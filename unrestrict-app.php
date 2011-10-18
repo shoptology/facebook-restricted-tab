@@ -1,10 +1,16 @@
 <?php
 require __DIR__ . '/config.php';
 
-// This only needs to be called when you want to change the restrictions
-// Don't do it every time the app runs
-// More info here: http://developers.facebook.com/docs/reference/rest/admin.setRestrictionInfo
-// Country list is here: http://www.iso.org/iso/country_codes/iso_3166_code_lists/english_country_names_and_code_elements.htm
+/* it doesn't seem possible to use the graph api to unset the restrictions
+ * @link https://developers.facebook.com/bugs/230288283693263?browse=search_4e9dda658001d8f76072914
+
+$result = $facebook->api("/{$appId}", 'POST', array(
+	'restrictions' => array()
+));
+
+*/
+
+// use old rest api until bug is fixed with removing restrictions with the graph api
 $result = $facebook->api(array(
 	'method' => 'admin.setRestrictionInfo',
 	'restriction_str' => array()
@@ -17,12 +23,13 @@ if ($result) {
 	echo "error unsetting restrictions\n";
 }
 
-sleep(5);
+sleep(2);
 
-$result = $facebook->api(array(
-	'method' => 'admin.getRestrictionInfo'
-));
-$restrictions = json_decode($result, true);
+$result = $facebook->api("/{$appId}?fields=restrictions");
+$restrictions = null;
+if (isset($result['restrictions'])) {
+	$restrictions = $result['restrictions'];
+}
 echo "current restrictions:\n";
 if ($restrictions !== false && !empty($restrictions)) {
 	print_r($restrictions);
@@ -30,5 +37,3 @@ if ($restrictions !== false && !empty($restrictions)) {
 	echo "none\n";
 }
 echo "\n";
-
-

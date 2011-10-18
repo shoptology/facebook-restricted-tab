@@ -5,9 +5,8 @@ require __DIR__ . '/config.php';
 // Don't do it every time the app runs
 // More info here: http://developers.facebook.com/docs/reference/rest/admin.setRestrictionInfo
 // Country list is here: http://www.iso.org/iso/country_codes/iso_3166_code_lists/english_country_names_and_code_elements.htm
-$result = $facebook->api(array(
-	'method' => 'admin.setRestrictionInfo',
-	'restriction_str' => array(
+$result = $facebook->api("/{$appId}", 'POST', array(
+	'restrictions' => array(
 		'location' => 'US'
 	)
 ));
@@ -21,10 +20,11 @@ if ($result) {
 
 sleep(2);
 
-$result = $facebook->api(array(
-	'method' => 'admin.getRestrictionInfo'
-));
-$restrictions = json_decode($result, true);
+$result = $facebook->api("/{$appId}?fields=restrictions");
+$restrictions = null;
+if (isset($result['restrictions'])) {
+	$restrictions = $result['restrictions'];
+}
 echo "current restrictions:\n";
 if ($restrictions !== false && !empty($restrictions)) {
 	print_r($restrictions);
@@ -32,4 +32,3 @@ if ($restrictions !== false && !empty($restrictions)) {
 	echo "none\n";
 }
 echo "\n";
-

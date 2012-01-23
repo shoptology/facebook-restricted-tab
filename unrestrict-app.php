@@ -1,26 +1,21 @@
 <?php
 require __DIR__ . '/config.php';
 
-/* it doesn't seem possible to use the graph api to unset the restrictions
- * @link https://developers.facebook.com/bugs/230288283693263?browse=search_4e9dda658001d8f76072914
+// This only needs to be called when you want to change the restrictions
+// Don't do it every time the app runs
+// More info here: http://developers.facebook.com/docs/reference/rest/admin.setRestrictionInfo
 
+echo "Unsetting restrictions for {$appId}\n";
+
+// unset restrictions by sending an empty array
 $result = $facebook->api("/{$appId}", 'POST', array(
 	'restrictions' => array()
 ));
 
-*/
-
-// use old rest api until bug is fixed with removing restrictions with the graph api
-$result = $facebook->api(array(
-	'method' => 'admin.setRestrictionInfo',
-	'restriction_str' => array()
-));
-
-echo $appId . "\n";
 if ($result) {
-	echo "successfully unset restrictions\n";
+	echo "successfully set restrictions\n";
 } else {
-	echo "error unsetting restrictions\n";
+	echo "error setting restrictions\n";
 }
 
 sleep(2);

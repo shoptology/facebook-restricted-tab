@@ -1,17 +1,15 @@
-Sample Facebook Tab Iframes and Restrictions App
+Sample Facebook Tab iFrames and Restrictions App
 ================================================
 
 This app demonstrates the capabilities of an iframe Page tab.
 
 Edit config.php with your app id, secret, and urls then add the app to a Page on Facebook.
 
-From the command-line, you can run
-    php restrict-app.php
-And it will make it so you app and tab will only be visible to users logged into Facebook with accounts from the US.
+If you run `php restrict-app.php` from the command-line, you can run and it will make it so you app and tab will only be visible to users logged into Facebook with accounts from the US.
 
-From the command-line, if you run
-    php unrestrict-app.php
-It will unset all of the restrictions so the app is visible to all.
+If you run `php unrestrict-app.php` from the command-line, it will unset all of the restrictions so the app is visible to all.
+
+Note that restrictions can now be managed via [Facebook's Developer app](https://developers.facebook.com/apps) so it's no longer necessary to do it via the API. Also note that if there are restrictions, people that are logged out of Facebook cannot see your app. We recommend viewing your application while logged out so you can see if using Facebook's app restrictions is the right experience for your apps.
 
 When you load the app in an iframe tab, it will show
 
